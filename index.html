@@ -1,85 +1,330 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuaEmpresa TI - Suporte e Soluções Tecnológicas</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Ícones do FontAwesome para deixar moderno -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undervolt — Suporte e Soluções Tecnológicas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0D10;
+    --surface: #14171C;
+    --surface-2: #1B1F25;
+    --line: rgba(232,230,222,0.10);
+    --line-strong: rgba(232,230,222,0.18);
+    --text: #E8E6DE;
+    --text-muted: #8B8F94;
+    --amber: #F2A93B;
+    --amber-dim: #8A6A2E;
+    --green: #3ECF8E;
+    --green-dim: rgba(62,207,142,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .circuit-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% -10%, rgba(242,169,59,0.08), transparent 60%),
+      radial-gradient(ellipse 50% 30% at 10% 10%, rgba(62,207,142,0.05), transparent 60%);
+  }
+
+  .wrap{max-width:1100px; margin:0 auto; padding:0 32px; position:relative; z-index:2;}
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,13,16,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo-mark{
+    width:10px; height:10px; border-radius:50%; background:var(--green);
+    box-shadow:0 0 0 3px var(--green-dim);
+  }
+  .logo-text{font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:18px; letter-spacing:0.02em;}
+  .logo-text span{color:var(--amber);}
+  .nav-links{display:flex; gap:32px; list-style:none;}
+  .nav-links a{color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; transition:color 0.2s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--bg);
+    background:var(--amber); padding:9px 18px; border-radius:4px; text-decoration:none;
+    font-weight:500; white-space:nowrap;
+  }
+
+  section{position:relative; z-index:2;}
+
+  .hero{padding:88px 0 64px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--green);
+    text-transform:uppercase; letter-spacing:0.12em; margin-bottom:18px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{content:''; width:16px; height:1px; background:var(--green);}
+  .hero h1{font-size:44px; line-height:1.12; margin-bottom:20px;}
+  .hero h1 em{font-style:normal; color:var(--amber);}
+  .hero p{color:var(--text-muted); font-size:16.5px; max-width:480px; margin-bottom:32px;}
+  .btn-row{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--amber); color:var(--bg); text-decoration:none; padding:14px 26px;
+    border-radius:5px; font-weight:600; font-size:15px; display:inline-flex; align-items:center; gap:8px;
+    transition:transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,169,59,0.22);}
+  .btn-secondary{
+    color:var(--text); text-decoration:none; padding:14px 22px; border-radius:5px;
+    border:1px solid var(--line-strong); font-size:15px; font-weight:500; transition:border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover{border-color:var(--amber-dim); background:var(--surface);}
+
+  .diag-panel{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden;
+  }
+  .diag-head{
+    display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--line);
+    background:var(--surface-2);
+  }
+  .diag-dot{width:9px; height:9px; border-radius:50%;}
+  .diag-title{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-muted); margin-left:6px;}
+  .diag-body{padding:20px; font-family:'IBM Plex Mono', monospace; font-size:13px; min-height:220px;}
+  .diag-line{display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px dashed var(--line); opacity:0; transform:translateY(4px); animation:diagIn 0.4s forwards;}
+  .diag-line:last-child{border-bottom:none;}
+  .diag-label{color:var(--text-muted);}
+  .diag-status{color:var(--green); font-weight:500;}
+  .diag-status.pending{color:var(--text-muted);}
+  @keyframes diagIn{to{opacity:1; transform:translateY(0);}}
+  .diag-cursor{display:inline-block; width:7px; height:14px; background:var(--amber); animation:blink 1s step-end infinite; vertical-align:middle;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .section-head{margin-bottom:44px;}
+  .section-tag{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--amber); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:12px;}
+  .section-head h2{font-size:30px;}
+
+  .services{padding:80px 0;}
+  .service-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  .service-card{background:var(--surface); padding:32px; transition:background 0.2s;}
+  .service-card:hover{background:var(--surface-2);}
+  .service-id{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--amber); margin-bottom:16px; display:block;}
+  .service-card h3{font-size:19px; margin-bottom:10px;}
+  .service-card p{color:var(--text-muted); font-size:14.5px;}
+
+  .about{padding:0 0 80px; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .about p{color:var(--text-muted); font-size:16px; margin-bottom:16px;}
+  .stat-row{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  .stat-box{background:var(--surface); padding:24px;}
+  .stat-num{font-family:'Space Grotesk', sans-serif; font-size:30px; font-weight:700; color:var(--amber);}
+  .stat-label{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-muted); margin-top:6px;}
+
+  .cta-section{padding:70px 0 100px;}
+  .cta-box{
+    background:linear-gradient(180deg, var(--surface), var(--surface-2));
+    border:1px solid var(--line-strong); border-radius:14px; padding:56px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .cta-box::before{
+    content:''; position:absolute; top:-50%; left:50%; transform:translateX(-50%);
+    width:400px; height:400px; background:radial-gradient(circle, rgba(242,169,59,0.14), transparent 70%);
+  }
+  .cta-box h2{font-size:28px; margin-bottom:12px; position:relative;}
+  .cta-box p{color:var(--text-muted); margin-bottom:28px; position:relative;}
+
+  footer{border-top:1px solid var(--line); padding:28px 0; display:flex; justify-content:space-between; align-items:center;}
+  footer p{color:var(--text-muted); font-size:13px;}
+  .footer-mono{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-muted);}
+
+  .fab{
+    position:fixed; bottom:24px; right:24px; z-index:60;
+    background:var(--green); color:#04342C; width:56px; height:56px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; text-decoration:none;
+    box-shadow:0 8px 24px rgba(62,207,142,0.3); transition:transform 0.2s;
+  }
+  .fab:hover{transform:scale(1.08);}
+
+  [data-reveal]{opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  [data-reveal].visible{opacity:1; transform:translateY(0);}
+
+  @media (max-width: 860px){
+    .nav-links{display:none;}
+    .hero{grid-template-columns:1fr; padding-top:56px;}
+    .hero h1{font-size:32px;}
+    .service-grid{grid-template-columns:1fr;}
+    .about{grid-template-columns:1fr;}
+    .stat-row{grid-template-columns:1fr;}
+    .cta-box{padding:36px 24px;}
+  }
+</style>
 </head>
 <body>
 
-    <!-- CABEÇALHO / MENU -->
-    <header>
-        <div class="container nav-container">
-            <h1 class="logo"><i class="fa-solid fa-microchip"></i> Undervolt<span> Suporte TI</span></h1>
-            <nav>
-                <a href="#servicos">Serviços</a>
-                <a href="#sobre">Sobre</a>
-                <a href="#contato" class="btn-nav">Fale Conosco</a>
-            </nav>
-        </div>
-    </header>
+<div class="grain"></div>
+<div class="circuit-bg"></div>
 
-    <!-- SEÇÃO PRINCIPAL (HERO) -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h2>Soluções de TI e Suporte Técnico para Empresas</h2>
-            <p>Mantenha os computadores, redes e sistemas da sua empresa funcionando sem paradas. Atendimento ágil e especializado para o seu negócio.</p>
-            <a href="https://wa.me/5548998318623?text=Olá,%20gostaria%20de%20um%20orçamento%20de%20suporte%20de%20TI." class="btn-whatsapp" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento Rápido
-            </a>
-        </div>
-    </section>
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <div class="logo-text">UNDER<span>VOLT</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a class="nav-cta" href="https://wa.me/5548998318623?text=Olá,%20gostaria%20de%20um%20orçamento%20de%20suporte%20de%20TI." target="_blank">falar agora</a>
+    </nav>
+  </div>
+</header>
 
-    <!-- SEÇÃO DE SERVIÇOS -->
-    <section id="servicos" class="container">
-        <h2 class="section-title">O que fazemos pela sua empresa</h2>
-        <div class="services-grid">
-            <div class="card">
-                <i class="fa-solid fa-computer"></i>
-                <h3>Suporte Técnico</h3>
-                <p>Manutenção preventiva e corretiva de computadores, notebooks e formatação com backup seguro.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-network-wired"></i>
-                <h3>Redes e Wi-Fi</h3>
-                <p>Configuração de roteadores, redes locais seguras, cabeamento estruturado e melhora de sinal.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-shield-halved"></i>
-                <h3>Segurança e Backups</h3>
-                <p>Implementação de antivírus corporativos, rotinas de backup na nuvem e proteção contra invasões.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-code"></i>
-                <h3>Pequenos Sistemas e Sites</h3>
-                <p>Desenvolvimento de páginas institucionais e automações em planilhas/scripts para o seu negócio.</p>
-            </div>
-        </div>
-    </section>
+<section class="hero wrap">
+  <div>
+    <div class="eyebrow">sistemas monitorados 24/7</div>
+    <h1>Sua infraestrutura de TI,<br>rodando na <em>voltagem certa</em>.</h1>
+    <p>Suporte técnico, redes e segurança para empresas que não podem parar. Diagnóstico rápido, solução definitiva, sem enrolação.</p>
+    <div class="btn-row">
+      <a class="btn-primary" href="https://wa.me/5548998318623?text=Olá,%20gostaria%20de%20um%20orçamento%20de%20suporte%20de%20TI." target="_blank">Solicitar orçamento →</a>
+      <a class="btn-secondary" href="#servicos">Ver serviços</a>
+    </div>
+  </div>
 
-    <!-- SEÇÃO SOBRE -->
-    <section id="sobre" class="about">
-        <div class="container about-content">
-            <h2>Por que contar com a nossa ajuda?</h2>
-            <p>Entendemos que parar um computador significa parar o faturamento da sua empresa. Por isso, oferecemos um atendimento humanizado, rápido e focado em resolver o problema de vez, permitindo que você foque no que importa: o crescimento do seu negócio.</p>
-        </div>
-    </section>
+  <div class="diag-panel">
+    <div class="diag-head">
+      <div class="diag-dot" style="background:#E24B4A"></div>
+      <div class="diag-dot" style="background:#EF9F27"></div>
+      <div class="diag-dot" style="background:#3ECF8E"></div>
+      <div class="diag-title">diagnostico.sh — em execução</div>
+    </div>
+    <div class="diag-body" id="diagBody"></div>
+  </div>
+</section>
 
-    <!-- RODAPÉ / CONTATO -->
-    <footer id="contato">
-        <div class="container footer-content">
-            <h3>Pronto para otimizar a TI da sua empresa?</h3>
-            <p>Entre em contato agora mesmo e tire suas dúvidas sem compromisso.</p>
-            <a href="https://wa.me/5548998318623?text=Olá,%20gostaria%20de%20um%20orçamento%20de%20suporte%20de%20TI." class="btn-whatsapp" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp
-            </a>
-            <p class="copy">&copy; 2026 TechSuporte. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+<section class="services wrap" id="servicos" data-reveal>
+  <div class="section-head">
+    <div class="section-tag">o que fazemos</div>
+    <h2>Cobertura completa da sua operação</h2>
+  </div>
+  <div class="service-grid">
+    <div class="service-card">
+      <span class="service-id mono">SVC/SUP</span>
+      <h3>Suporte técnico</h3>
+      <p>Manutenção preventiva e corretiva de computadores e notebooks, com formatação e backup seguro dos seus dados.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-id mono">SVC/NET</span>
+      <h3>Redes e Wi-Fi</h3>
+      <p>Configuração de roteadores, redes locais seguras, cabeamento estruturado e ajustes para melhorar o sinal.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-id mono">SVC/SEC</span>
+      <h3>Segurança e backups</h3>
+      <p>Antivírus corporativo, rotinas de backup na nuvem e proteção contra invasões e perda de dados.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-id mono">SVC/DEV</span>
+      <h3>Sistemas e sites</h3>
+      <p>Desenvolvimento de páginas institucionais e automações em planilhas e scripts sob medida para o seu negócio.</p>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<section class="about wrap" id="sobre" data-reveal>
+  <div>
+    <div class="section-tag">por que a undervolt</div>
+    <h2 style="font-size:26px; margin-bottom:16px;">Menos tempo parado, mais tempo faturando</h2>
+    <p>Cada minuto com o computador travado ou a rede fora do ar é dinheiro saindo do caixa. Por isso o atendimento é direto: identificamos a causa, resolvemos de vez e explicamos o que aconteceu, sem termo técnico confuso.</p>
+    <p>Trabalhamos como uma extensão da sua equipe — disponíveis quando você precisa, sem contratos engessados.</p>
+  </div>
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">&lt;24h</div>
+      <div class="stat-label mono">tempo médio de resposta</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">100%</div>
+      <div class="stat-label mono">atendimento sem burocracia</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">0</div>
+      <div class="stat-label mono">fidelidade obrigatória</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">1:1</div>
+      <div class="stat-label mono">atendimento humano direto</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section wrap" id="contato" data-reveal>
+  <div class="cta-box">
+    <h2>Pronto para tirar a TI do vermelho?</h2>
+    <p>Fale agora e receba um orçamento rápido, sem compromisso.</p>
+    <a class="btn-primary" href="https://wa.me/5548998318623?text=Olá,%20gostaria%20de%20um%20orçamento%20de%20suporte%20de%20TI." target="_blank">Chamar no WhatsApp →</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>© 2026 Undervolt Suporte TI. Todos os direitos reservados.</p>
+  <p class="footer-mono">status: <span style="color:#3ECF8E">operacional</span></p>
+</footer>
+
+<a class="fab" href="https://wa.me/5548998318623?text=Olá,%20gostaria%20de%20um%20orçamento%20de%20suporte%20de%20TI." target="_blank" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.52 0-10 4.48-10 10 0 1.77.46 3.45 1.27 4.9L2 22l5.25-1.38c1.4.76 2.99 1.18 4.79 1.18 5.52 0 10-4.48 10-10s-4.48-10-10-10zm5.87 14.19c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.14.09-1.84-.12-.42-.13-.96-.3-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.37-.14-.2-1.18-1.57-1.18-3s.75-2.12 1.02-2.41c.26-.29.57-.36.76-.36.19 0 .38 0 .54.01.17.01.4-.06.63.48.24.57.8 1.99.87 2.13.07.14.12.31.02.5-.1.19-.15.31-.29.47-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.35 1.46.29.15.46.13.63-.08.17-.2.72-.84.91-1.13.19-.29.38-.24.63-.14.26.1 1.65.78 1.93.92.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
+</a>
+
+<script>
+  const checks = [
+    ["backup.rotina", "verificado"],
+    ["antivirus.core", "ativo"],
+    ["rede.latencia", "18ms"],
+    ["firewall.regras", "ok"],
+    ["disco.saude", "97%"],
+    ["uptime.servidor", "99.9%"]
+  ];
+  const body = document.getElementById('diagBody');
+  let i = 0;
+  function typeLine(){
+    if(i >= checks.length){
+      const cur = document.createElement('div');
+      cur.style.marginTop = '10px';
+      cur.innerHTML = '<span class="diag-cursor"></span>';
+      body.appendChild(cur);
+      return;
+    }
+    const [label, status] = checks[i];
+    const line = document.createElement('div');
+    line.className = 'diag-line';
+    line.innerHTML = '<span class="diag-label">' + label + '</span><span class="diag-status">' + status + '</span>';
+    body.appendChild(line);
+    i++;
+    setTimeout(typeLine, 320);
+  }
+  typeLine();
+
+  const reveals = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  reveals.forEach(el=>io.observe(el));
+</script>
+
 </body>
 </html>
